@@ -1,0 +1,24 @@
+<div class="tree">
+  <ul>
+    <li ng-repeat="country in vm.countries" ng-class="{closed:country.closed}">
+      <div>
+        <input type="checkbox" ng-model="country.checked" ng-change="vm.countryChanged(country)"
+               ng-class="{intermediate: vm.isIntermediateCountry(country)}"/>
+          <span ng-click="country.closed=!country.closed">
+            <span class="glyphicon" ng-class="country.closed?'glyphicon-plus':'glyphicon-minus'"></span>
+            {{country.category}}
+          </span>
+      </div>
+      <ul ng-class="{hidden: country.closed}">
+        <li ng-repeat="province in country.friends" ng-class="{closed:province.closed}">
+          <input type="checkbox" ng-model="province.checked" ng-change="vm.provinceChanged(province, country)"
+                 ng-class="{intermediate: vm.isIntermediateProvince(province)}"/>
+            <span>
+              <img ng-src="images/{{country.flag}}"/>
+              {{province.name}}
+            </span>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
